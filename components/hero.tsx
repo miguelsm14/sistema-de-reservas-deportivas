@@ -2,44 +2,93 @@ import Image from "next/image";
 
 export function Hero() {
   return (
-    <div className="flex flex-col columns-2 gap-5 items-center">
-      {/* ESTO ES EL TITULO */}
+    <div className="w-full max-w-7xl mx-auto px-4">
 
-      <div className="flex">
-        <h1 className="flex-1 text-3xl lg:text-6xl !leading-tight mx-auto text-center">
-          Reservar nunca fue tan sencillo
-        </h1>
-        <p className="flex-1">
-          La forma más sencilla de reservar tu pista de padel, y divertida...
-        </p>
-        <Image
-        src="/reserva.png"
-        alt="hero"
-        width={200}
-        height={200}
-        />
-      </div>
+      {/* ================= HERO ================= */}
+      <section className="flex flex-col lg:flex-row items-center gap-12">
 
-      <div className="columns-2" >
-        <h1 className="text-3xl lg:text-6xl !leading-tight mx-auto text-center">
-          Reservar nunca fue tan sencillo
-        </h1>
-        <p>
-          La forma más sencilla de reservar tu pista de padel, y divertida...
-        </p>
-        <Image
-        src="/reserva.png"
-        alt="hero"
-        width={200}
-        height={200}
-        />
-      </div>
-      {/* Esto es una linea */}
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-3" />
+        {/* IZQUIERDA */}
+        <div className="w-full lg:w-1/2 flex flex-col gap-6 text-center lg:text-left">
+          <h1 className="text-3xl lg:text-5xl font-bold leading-tight">
+            Reservar nunca fue tan sencillo
+          </h1>
 
-      <h2>
+          <p className="text-lg text-muted-foreground">
+            La forma más fácil y divertida de reservar pistas deportivas.
+          </p>
+        </div>
 
-      </h2>
+        {/* DERECHA */}
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <Image
+            src="/reserva.png"
+            alt="Imagen Hero"
+            width={300}
+            height={300}
+            className="rounded-xl"
+          />
+        </div>
+      </section>
+
+      {/* ================= TITULO NEGATIVO ================= */}
+      <section className="mt-24 text-center">
+        <h2 className="text-3xl lg:text-4xl font-bold">
+          Reservar una pista sigue siendo un lío
+        </h2>
+      </section>
+
+      {/* ================= DESVENTAJAS ================= */}
+      <section className="mt-12 flex flex-col lg:flex-row gap-8">
+
+        {/* CARD 1 */}
+        <div className="w-full lg:w-1/3 flex flex-col gap-4 text-center">
+          <h3 className="text-2xl font-bold">Dependencia total</h3>
+          <p className="text-muted-foreground">
+            La reserva depende de una persona, no de un sistema.
+          </p>
+          <div className="flex justify-center">
+            <Image
+              src={"/reserva.png"}
+              alt=""
+              width={150}
+              height={150}
+            />
+          </div>
+        </div>
+
+        {/* CARD 2 */}
+        <div className="w-full lg:w-1/3 flex flex-col gap-4 text-center">
+          <h3 className="text-2xl font-bold">Papel = errores</h3>
+          <p className="text-muted-foreground">
+            Un papel no valida nada. <br/> Un ordenador si.
+          </p>
+          <div className="flex justify-center">
+            <Image
+              src={"/reserva.png"}
+              alt=""
+              width={150}
+              height={150}
+            />
+          </div>
+        </div>
+
+        {/* CARD 3 */}
+        <div className="w-full lg:w-1/3 flex flex-col gap-4 text-center">
+          <h3 className="text-2xl font-bold">Todo depende de memoria humana</h3>
+          <p className="text-muted-foreground">
+            La memoria falla. Siempre.
+          </p>
+          <div className="flex justify-center">
+            <Image
+              src={"/reserva.png"}
+              alt=""
+              width={150}
+              height={150}
+            />
+          </div>
+        </div>
+
+      </section>
 
     </div>
   );
