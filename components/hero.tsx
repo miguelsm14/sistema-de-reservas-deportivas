@@ -175,7 +175,7 @@ export function Hero() {
       </section>
 
       {/* ================= TITULO 2VS2 ================= */}
-      <section className="mt-24 text-center border-t bg-emerald-300">
+      <section className="mt-24 text-center border-t bg-teal-600">
         <p className="text-green-500 pt-6">
           PADEL
         </p>
@@ -183,13 +183,15 @@ export function Hero() {
           Modo 2vs2 aleatorio activado
         </h2>
 
-        <div className=" bg-emerald-300 pb-6">
-          <p className="mx-auto text-lg mb-6 w-px-3">
-            A parte de la facilidad para reservar pistas deportivas, tambien nos aseguramos que te lo pases bien haciendo tu deporte favorito.<br />
-            El modo 2vs2 se basa en una reserva a mitad de precio, pero con la condición de que no se reserva hasta que otra pareja aleatoria reserve la otra mitad de la pista.<br />
-            Haciendo así que si no tienes con quien jugar, puedas enfrentarte a otra pareja aleatoriamente.
+        <div className="w-full max-w-7xl mx-auto px-2 lg:px-6 pb-6">
+          <p className="text-lg mb-6 text-center">
+            A parte de la facilidad para reservar pistas deportivas, también nos aseguramos que te lo pases bien haciendo tu deporte favorito.
+            <br />
+            El modo 2vs2 se basa en una reserva a mitad de precio, pero con la condición de que no se confirma hasta que otra pareja reserve la otra mitad de la pista.
+            Haciendo así que, si no tienes con quién jugar, puedas enfrentarte a otra pareja aleatoriamente.
           </p>
         </div>
+
       </section>
     </div>
   );
