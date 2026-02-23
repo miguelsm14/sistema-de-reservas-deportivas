@@ -1,44 +1,68 @@
-import { NextLogo } from "./next-logo";
-import { SupabaseLogo } from "./supabase-logo";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
-export function Cuenta() {
+export async function Cuenta() {
+
+
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <div className="min-h-screen w-full flex justify-center bg-background p-6">
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* SIDEBAR */}
+        <Card className="lg:col-span-1">
+          <CardHeader>
+            <CardTitle>Cuenta</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 text-sm">
+            <div className="p-2 rounded-md bg-muted">Perfil</div>
+            <div className="p-2 rounded-md hover:bg-muted/50 cursor-pointer">Seguridad</div>
+            <div className="p-2 rounded-md hover:bg-muted/50 cursor-pointer">Facturación</div>
+          </CardContent>
+        </Card>
+
+        {/* MAIN CONTENT */}
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle>Perfil</CardTitle>
+          </CardHeader>
+
+          <CardContent className="space-y-8">
+            {/* USER INFO */}
+            <div className="flex items-center gap-4">
+
+              <div>
+                <p className="font-medium">Miguel Sánchez</p>
+                <p className="text-sm text-muted-foreground">miguel@email.com</p>
+              </div>
+            </div>
+
+            {/* FORM */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Nombre</label>
+                <Input placeholder="Tu nombre" defaultValue="Miguel" />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Apellidos</label>
+                <Input placeholder="Tus apellidos" defaultValue="Sánchez" />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Email</label>
+                <Input placeholder="Tu email" defaultValue="miguel@email.com" disabled />
+              </div>
+            </div>
+
+            {/* ACTIONS */}
+            <div className="flex justify-end gap-3">
+              <Button variant="outline">Cancelar</Button>
+              <Button>Guardar cambios</Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );
 }

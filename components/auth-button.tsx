@@ -11,9 +11,16 @@ export async function AuthButton() {
 
   const user = data?.claims;
 
+  const { data: usuario } = await supabase
+    .from("Usuarios")
+    .select("nombre")
+    .eq("uid", user?.sub) //<- User.sub es el user id, en mi caso el uid que se crea cuando se registra un usuario
+    .single()
+    ;
+
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
+      Hey, {usuario?.nombre ?? "Usuario"}!
       <LogoutButton />
     </div>
   ) : (
