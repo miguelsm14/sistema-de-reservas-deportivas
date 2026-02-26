@@ -3,8 +3,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 
-export async function Cuenta() {
+export default async function Cuenta() {
 
+  const supabase = await createClient();
+
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims;
+
+  const { data: usuario } = await supabase
+    .from("Usuarios")
+    .select("nombre, apellido, email, telefono")
+    .eq("uid", user?.sub) //<- User.sub es el user id, en mi caso el uid que se crea cuando se registra un usuario
+    .single()
+    ;
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-background p-6">
@@ -32,8 +43,12 @@ export async function Cuenta() {
             <div className="flex items-center gap-4">
 
               <div>
-                <p className="font-medium">Miguel Sánchez</p>
-                <p className="text-sm text-muted-foreground">miguel@email.com</p>
+                <p className="font-medium">
+                  {usuario?.nombre && usuario?.apellido
+                    ? `${usuario.nombre} ${usuario.apellido}`
+                    : "Usuario registrado"}
+                </p>
+                <p className="text-sm text-muted-foreground">{usuario?.email}</p>
               </div>
             </div>
 
@@ -41,28 +56,29 @@ export async function Cuenta() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Nombre</label>
-                <Input placeholder="Tu nombre" defaultValue="Miguel" />
+                <Input placeholder="Tu nombre" defaultValue={usuario?.nombre} />
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Apellidos</label>
-                <Input placeholder="Tus apellidos" defaultValue="Sánchez" />
+                <Input placeholder="Tus apellidos" defaultValue={usuario?.apellido} />
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Email</label>
-                <Input placeholder="Tu email" defaultValue="miguel@email.com" disabled />
+                <Input placeholder="Tu email" defaultValue={usuario?.email} disabled />
               </div>
             </div>
 
             {/* ACTIONS */}
             <div className="flex justify-end gap-3">
-              <Button variant="outline">Cancelar</Button>
+              <Button
+              />
               <Button>Guardar cambios</Button>
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  );
+  )
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ShinyText from "./ShinyText";
 import SpotlightCard from "./SpotlightCard";
+import ScrollVelocity from "./ScrollVelocity";
 
 
 export function Hero() {
@@ -43,6 +44,17 @@ export function Hero() {
           </div>
         </div>
       </section>
+
+      {/* ================= CARRUSEL LOP ================= */}
+      <div className="mt-20">
+        <ScrollVelocity
+        texts={['Sin llamadas - Disponible 24/7 - Confirmación instantánea - ']}
+        velocity={150}
+        className="custom-scroll-text"
+      />
+      </div>
+      
+
       {/* ================= TITULO NEGATIVO ================= */}
       <section className="mt-20 lg:mt-28 text-center px-4">
         <p className="text-red-500 text-sm font-medium">
