@@ -1,11 +1,21 @@
+//IMPORT VARIOS
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Hero } from "@/components/landing/hero";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
-import Desventajas from "@/components/ejemplos";
+/////////////////////////////////
+
+//IMPORT DE TODAS LAS PAGES DE LA LANDING
+import { NegPoints } from "@/components/landing/negativePoints";
+import { ContactForm } from "@/components/landing/contactForm";
+import { PosPoints } from "@/components/landing/positivePoints";
+import { HowWork } from "@/components/landing/howWorks";
+import { FinalCTA } from "@/components/landing/finalCTA";
+import { RandomTitle } from "@/components/landing/randomTitle";
+/////////////////////////////////
+
 
 export default function Home() {
   return (
@@ -35,9 +45,15 @@ export default function Home() {
 
           </div>
         </nav>
-
+        {/* LANDING COMPLETA */}
         <div className="w-full">
           <Hero />
+          <NegPoints/>
+          <PosPoints/>
+          <HowWork/>
+          <RandomTitle/>
+          <FinalCTA/>
+          <ContactForm/>
         </div>
 
         <footer className="w-full flex flex-col sm:flex-row items-center justify-center border-t mx-auto text-center text-xs gap-4 sm:gap-8 py-16">
