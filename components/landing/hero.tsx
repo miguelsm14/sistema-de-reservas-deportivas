@@ -1,7 +1,6 @@
 'use client'
 import { Button } from "../ui/button";
-import { ArrowRight, CalendarCheck, Clock, MapPin, PartyPopper, Phone, ShieldCheck, ShieldOff, Shuffle, TrendingDown, User, Zap } from "lucide-react";
-import SpotlightCard from "../SpotlightCard";
+import { ArrowRight, Zap } from "lucide-react";
 import ScrollVelocity from "../ScrollVelocity";
 import { useFadeUp } from "../ui/fadeUp";
 
