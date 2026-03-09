@@ -11,20 +11,39 @@ import { HeroAbout } from "@/components/about/hero"
 import { Historia } from "@/components/about/history";
 import { Valores } from "@/components/about/nuestrosValores";
 import { Equipo } from "@/components/about/equipo";
+import { MenuHeader } from "@/components/header";
 /////////////////////////////////
 
 export default function About() {
     return (
         <main className="min-h-screen flex flex-col items-center bg-background">
+
             <nav className="w-full flex justify-center border-b border-b-foreground/10">
-                <div className="w-full max-w-5xl flex flex-col sm:flex-row sm:h-16 items-center justify-between p-3 px-5 text-sm gap-3">
+                <div className="w-full max-w-5xl flex flex-row h-14 items-center justify-between px-5 text-sm gap-4">
 
-                    {/* Logo + Auth */}{/* NAV PROVISIONAL */}
-                    <div className="w-full flex justify-between items-center">
-                        <div className="flex gap-5 items-center font-semibold">
-                            <Link href="/">Sistemas de Gestión de Reservas</Link>
-                        </div>
+                    {/* Logo - solo visible en desktop */}
+                    <div className="flex-shrink-0 font-semibold">
+                        <Link href="/">SGR</Link>
+                    </div>
 
+                    {/* Menu */}
+                    <div className="flex-1 flex justify-center overflow-hidden">
+                        <MenuHeader
+                            logo={<Link href="/">SGR</Link>}
+                            auth={
+                                !hasEnvVars ? (
+                                    <EnvVarWarning />
+                                ) : (
+                                    <Suspense fallback={<p>Cargando...</p>}>
+                                        <AuthButton />
+                                    </Suspense>
+                                )
+                            }
+                        />
+                    </div>
+
+                    {/* Auth - solo visible en desktop */}
+                    <div className="flex-shrink-0 hidden sm:block">
                         {!hasEnvVars ? (
                             <EnvVarWarning />
                         ) : (
@@ -33,15 +52,15 @@ export default function About() {
                             </Suspense>
                         )}
                     </div>
+
                 </div>
             </nav>
 
-
             <div className="w-full">
                 <HeroAbout />
-                <Historia/>
-                <Valores/>
-                <Equipo/>
+                <Historia />
+                <Valores />
+                <Equipo />
             </div>
         </main>
     )

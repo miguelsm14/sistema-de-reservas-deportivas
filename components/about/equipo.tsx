@@ -10,7 +10,7 @@ export function Equipo(){
         },
         {
             icon: Dumbbell,
-            title: "Juan Francisco Morales Arias",
+            title: "Juan Francisco Márquez Arias",
             role: "Cofundador",
             description: "",
         }
