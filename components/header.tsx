@@ -21,7 +21,7 @@ export function MenuHeader({ logo, auth }: MenuHeaderProps) {
   const [open, setOpen] = useState(false)
 
   return (
-    <>
+    <main>
       {/* Desktop */}
       <ul className="hidden sm:flex items-center gap-1 flex-nowrap whitespace-nowrap">
         {navLinks.map(({ label, href }) => {
@@ -108,6 +108,6 @@ export function MenuHeader({ logo, auth }: MenuHeaderProps) {
           </div>
         )}
       </div>
-    </>
+    </main>
   )
 }

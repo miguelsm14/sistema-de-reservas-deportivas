@@ -47,13 +47,6 @@ export function Hero() {
                   Reservar ahora
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base border-border hover:bg-secondary"
-                >
-                  Ver cómo funciona
-                </Button>
               </div>
 
               {/* PARA UN FUTURO¿? */}
