@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 //IMPORT DE TODAS LAS PAGES
 import PistasExistentes from "@/components/reserva/pistasExistentes";
-import { MenuHeader } from "@/components/header";
+import { MenuHeaderServer as MenuHeader } from "@/components/menu-header-server";
 import { Calendario } from "@/components/reserva/calendario";
 /////////////////////////////////
 

@@ -1,10 +1,11 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MapPin } from "lucide-react"
 
 import { Calendario } from "./calendario"
 import { HorasDisponibles } from "./horasDisponibles"
 import { ConfirmarReserva } from "./confirmarReserva"
+import { createClient } from "@/lib/supabase/client"
 
 //la forma de los datos que llegan de Supabase = Cada pista tiene estas propiedades
 interface Pistas {
@@ -25,6 +26,48 @@ export function PistasClient({ pistas }: PistasClientProps) {
     const [pistaSeleccionada, setPistaSeleccionada] = useState<Pistas | null>(null)
     const [horaSeleccionada, setHoraSeleccionada] = useState<string | null>(null)
     const [fecha, setFecha] = useState<Date | undefined>(undefined)
+    const [horasOcupadas, setHorasOcupadas] = useState<string[]>([])
+
+    // Efecto para obtener las horas ya reservadas al cambiar de pista o fecha
+    useEffect(() => {
+        async function fetchOcupadas() {
+            if (!pistaSeleccionada || !fecha) {
+                setHorasOcupadas([])
+                setHoraSeleccionada(null)
+                return
+            }
+            
+            // Reseteamos siempre la hora al cambiar de dia para evitar estados corruptos
+            setHoraSeleccionada(null)
+            
+            const supabase = createClient()
+            const exactDate = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`
+            
+            const { data } = await supabase
+                .from("Reservas")
+                .select("hora")
+                .eq("id_pista", pistaSeleccionada.id)
+                .eq("fecha", exactDate)
+                
+            if (data) {
+                // Supabase devuelve la hora como '15:00:00', extraemos solo '15:00'
+                const occupiedFormated = data.map(r => r.hora.slice(0, 5))
+                setHorasOcupadas(occupiedFormated)
+            }
+        }
+        
+        fetchOcupadas()
+    }, [pistaSeleccionada, fecha])
+
+    const getIconForSport = (sport: string) => {
+        const lower = sport.toLowerCase()
+        if (lower.includes('futbol') || lower.includes('fútbol')) return "⚽"
+        if (lower.includes('baloncesto') || lower.includes('basket')) return "🏀"
+        if (lower.includes('voleibol') || lower.includes('voley')) return "🏐"
+        if (lower.includes('natacion') || lower.includes('piscina')) return "🏊‍♂️"
+        if (lower.includes('padel') || lower.includes('tenis')) return "🎾"
+        return "🏟️" 
+    }
 
     return (
         <div className="space-y-8">
@@ -46,7 +89,7 @@ export function PistasClient({ pistas }: PistasClientProps) {
                         >
                             <div className="flex items-start justify-between mb-3">
                                 <div>
-                                    <span className="text-3xl block mb-1">{"🎾"}</span>
+                                    <span className="text-3xl block mb-1">{getIconForSport(c.deporte)}</span>
                                     <h3 className="font-display font-semibold text-foreground">{c.nombre}</h3>
                                     <p className="text-xs text-muted-foreground mt-0.5">{c.deporte}</p>
                                 </div>
@@ -72,6 +115,7 @@ export function PistasClient({ pistas }: PistasClientProps) {
                     <HorasDisponibles
                         horaSeleccionada={horaSeleccionada}
                         onHoraSelect={setHoraSeleccionada}
+                        horasOcupadas={horasOcupadas}
                     />
                 </section>
             )}

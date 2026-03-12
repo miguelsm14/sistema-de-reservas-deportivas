@@ -5,7 +5,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
-import { MenuHeader } from "@/components/header";
+import { MenuHeaderServer as MenuHeader } from "@/components/menu-header-server";
 
 export default function Account() {
   return (

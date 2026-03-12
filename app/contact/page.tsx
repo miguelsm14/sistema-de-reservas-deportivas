@@ -3,7 +3,7 @@ import { AuthButton } from "@/components/auth-button";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
-import { MenuHeader } from "@/components/header";
+import { MenuHeaderServer as MenuHeader } from "@/components/menu-header-server";
 ///////// IMPORTS PAGINAS /////////
 import { Hero } from "@/components/contact/hero";
 import { InfoContact } from "@/components/contact/infoContact";

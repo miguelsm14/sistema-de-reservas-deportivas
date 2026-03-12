@@ -6,7 +6,7 @@ import { useState } from 'react'
 const navLinks = [
   { label: 'Inicio', href: '/' },
   { label: 'Sobre Nosotros', href: '/about' },
-  { label: 'Reservar', href: '/reservar' },
+  { label: 'Reservar', href: '/reservas' },
   { label: 'Cuenta', href: '/account' },
   { label: 'Contacto', href: '/contact' },
 ]
@@ -14,17 +14,23 @@ const navLinks = [
 interface MenuHeaderProps {
   logo?: React.ReactNode
   auth?: React.ReactNode
+  isAdmin?: boolean
 }
 
-export function MenuHeader({ logo, auth }: MenuHeaderProps) {
+export function MenuHeader({ logo, auth, isAdmin }: MenuHeaderProps) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+
+  // Ocultamos el link de admin para usuarios normales
+  const visibleLinks = navLinks.concat(
+    isAdmin ? [{ label: 'Panel Admin', href: '/admin' }] : []
+  )
 
   return (
     <main>
       {/* Desktop */}
       <ul className="hidden sm:flex items-center gap-1 flex-nowrap whitespace-nowrap">
-        {navLinks.map(({ label, href }) => {
+        {visibleLinks.map(({ label, href }) => {
           const isActive = pathname === href
           return (
             <li key={href}>
@@ -83,7 +89,7 @@ export function MenuHeader({ logo, auth }: MenuHeaderProps) {
 
         {/* Links */}
         <nav className="flex flex-col px-3 py-4 gap-1 flex-1">
-          {navLinks.map(({ label, href }) => {
+          {visibleLinks.map(({ label, href }) => {
             const isActive = pathname === href
             return (
               <Link

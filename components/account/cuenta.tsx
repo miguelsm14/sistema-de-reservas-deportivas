@@ -1,4 +1,5 @@
 import { AccountTabs } from "./tabAccount";
+import { HistorialReservas } from "./historial-reservas";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Cuenta() {
@@ -14,7 +15,7 @@ export default async function Cuenta() {
     .single();
 
   return (
-    <div className="min-h-screen w-full flex justify-center bg-background p-6">
+    <div className="min-h-screen w-full flex flex-col items-center bg-background p-6">
       <AccountTabs
         uid={uid}
         usuario={{
@@ -24,6 +25,10 @@ export default async function Cuenta() {
           telefono: usuario?.telefono ?? "",
         }}
       />
+      <div className="w-full max-w-5xl mt-8 pt-8 border-t">
+        <h2 className="text-2xl font-bold mb-2">Mis Reservas</h2>
+        <HistorialReservas />
+      </div>
     </div>
   );
 }

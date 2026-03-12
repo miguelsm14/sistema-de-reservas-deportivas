@@ -11,7 +11,7 @@ import { HeroAbout } from "@/components/about/hero"
 import { Historia } from "@/components/about/history";
 import { Valores } from "@/components/about/nuestrosValores";
 import { Equipo } from "@/components/about/equipo";
-import { MenuHeader } from "@/components/header";
+import { MenuHeaderServer as MenuHeader } from "@/components/menu-header-server";
 /////////////////////////////////
 
 export default function About() {

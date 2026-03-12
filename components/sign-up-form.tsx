@@ -61,11 +61,11 @@ export function SignUpForm({
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
-      //Guardo el uid de auth user y el correo, y lo inserto en Usuarios como un usuario nuevo
       if (data?.user) {
         await supabase.from("Usuarios").insert({
           uid: data.user.id,
-          email: data.user.email
+          email: data.user.email,
+          codRol: 1 // 1 para usuarios normales por defecto
         });
       }
 

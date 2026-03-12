@@ -14,7 +14,7 @@ import { PosPoints } from "@/components/landing/positivePoints";
 import { HowWork } from "@/components/landing/howWorks";
 import { FinalCTA } from "@/components/landing/finalCTA";
 import { RandomTitle } from "@/components/landing/randomTitle";
-import { MenuHeader } from "@/components/header";
+import { MenuHeaderServer as MenuHeader } from "@/components/menu-header-server";
 /////////////////////////////////
 
 

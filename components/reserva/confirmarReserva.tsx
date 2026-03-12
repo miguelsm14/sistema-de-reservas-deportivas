@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
 
+import { toast } from "sonner"
+
 interface ConfirmarReservaProps {
     pista: { id: string, nombre: string, precio: number }
     fecha: Date
@@ -12,35 +14,57 @@ interface ConfirmarReservaProps {
 
 export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) {
     const [loading, setLoading] = useState(false)
-    const [mensaje, setMensaje] = useState<{ type: 'success' | 'error', text: string } | null>(null)
 
     const handleReservar = async () => {
         setLoading(true)
-        setMensaje(null)
 
         const supabase = createClient()
 
         const { data: { user } } = await supabase.auth.getUser()
 
         if (!user) {
-            setMensaje({ type: 'error', text: 'Debes iniciar sesión para reservar.' })
+            toast.error('Debes iniciar sesión para reservar.')
             setLoading(false)
             return
         }
 
+        const exactTime = hora + ':00'
+        const exactDate = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}`
+
+        // 1. Verificación de conflicto de reservas
+        const { data: existingReservations, error: conflictError } = await supabase
+            .from("Reservas")
+            .select("id")
+            .eq("id_pista", pista.id)
+            .eq("fecha", exactDate)
+            .eq("hora", exactTime)
+
+        if (conflictError) {
+            toast.error('Hubo un problema verificando la disponibilidad.')
+            setLoading(false)
+            return
+        }
+
+        if (existingReservations && existingReservations.length > 0) {
+            toast.error('Esta pista ya ha sido reservada para esa hora. Por favor, elige otra.')
+            setLoading(false)
+            return
+        }
+
+        // 2. Inserción de la nueva reserva
         const { error } = await supabase
             .from("Reservas")
             .insert({
                 id_usuario: user.id,
                 id_pista: pista.id,
-                fecha: fecha.toISOString().split('T')[0], // formato YYYY-MM-DD
-                hora: hora + ':00',
+                fecha: exactDate,
+                hora: exactTime,
             })
 
         if (error) {
-            setMensaje({ type: 'error', text: 'Error al realizar la reserva.' })
+            toast.error('Error al realizar la reserva.')
         } else {
-            setMensaje({ type: 'success', text: '¡Reserva realizada correctamente!' })
+            toast.success('¡Reserva realizada correctamente!')
         }
 
         setLoading(false)
@@ -55,12 +79,6 @@ export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) 
                     <p>🕐 <span className="text-foreground font-medium">{hora} — {`${parseInt(hora) + 1}:00`}</span></p>
                     <p>💶 <span className="text-foreground font-medium">{pista.precio}€</span></p>
                 </div>
-
-                {mensaje && (
-                    <p className={`text-sm ${mensaje.type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
-                        {mensaje.text}
-                    </p>
-                )}
 
                 <Button onClick={handleReservar} disabled={loading} className="w-full">
                     {loading ? 'Reservando...' : 'Confirmar reserva'}

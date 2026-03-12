@@ -3,6 +3,7 @@
 interface HorasDisponiblesProps {
   horaSeleccionada: string | null
   onHoraSelect: (hora: string) => void
+  horasOcupadas: string[]
 }
 
 const HORAS = [
@@ -11,24 +12,31 @@ const HORAS = [
   '21:00', '22:00'
 ]
 
-export function HorasDisponibles({ horaSeleccionada, onHoraSelect }: HorasDisponiblesProps) {
+export function HorasDisponibles({ horaSeleccionada, onHoraSelect, horasOcupadas }: HorasDisponiblesProps) {
   return (
     <section className="space-y-4">
       <h2 className="text-lg font-display font-semibold">Elige una hora</h2>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2">
-        {HORAS.map((hora) => (
-          <button
-            key={hora}
-            onClick={() => onHoraSelect(hora)}
-            className={`rounded-xl border py-2 px-3 text-sm font-medium transition-all duration-200
-              ${horaSeleccionada === hora
-                ? 'border-primary bg-primary/5 text-primary'
-                : 'hover:border-foreground/30'
-              }`}
-          >
-            {hora}
-          </button>
-        ))}
+        {HORAS.map((hora) => {
+          const isOccupied = horasOcupadas.includes(hora)
+          
+          return (
+            <button
+              key={hora}
+              onClick={() => !isOccupied && onHoraSelect(hora)}
+              disabled={isOccupied}
+              className={`rounded-xl border py-2 px-3 text-sm font-medium transition-all duration-200
+                ${isOccupied 
+                  ? 'opacity-40 cursor-not-allowed bg-muted/60 border-muted text-muted-foreground line-through'
+                  : horaSeleccionada === hora
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'hover:border-foreground/30 active:scale-95'
+                }`}
+            >
+              {hora}
+            </button>
+          )
+        })}
       </div>
     </section>
   )
