@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
 
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 interface ConfirmarReservaProps {
     pista: { id: string, nombre: string, precio: number }
@@ -14,6 +15,7 @@ interface ConfirmarReservaProps {
 
 export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) {
     const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     const handleReservar = async () => {
         setLoading(true)
@@ -65,6 +67,10 @@ export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) 
             toast.error('Error al realizar la reserva.')
         } else {
             toast.success('¡Reserva realizada correctamente!')
+            //Esto realiza la recarga despues de reservar
+            setTimeout(() => {
+                window.location.reload()
+            }, 1500)
         }
 
         setLoading(false)

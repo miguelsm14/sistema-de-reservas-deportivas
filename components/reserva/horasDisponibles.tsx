@@ -14,30 +14,26 @@ const HORAS = [
 
 export function HorasDisponibles({ horaSeleccionada, onHoraSelect, horasOcupadas }: HorasDisponiblesProps) {
   return (
-    <section className="space-y-4">
-      <h2 className="text-lg font-display font-semibold">Elige una hora</h2>
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2">
-        {HORAS.map((hora) => {
-          const isOccupied = horasOcupadas.includes(hora)
-          
-          return (
-            <button
-              key={hora}
-              onClick={() => !isOccupied && onHoraSelect(hora)}
-              disabled={isOccupied}
-              className={`rounded-xl border py-2 px-3 text-sm font-medium transition-all duration-200
-                ${isOccupied 
-                  ? 'opacity-40 cursor-not-allowed bg-muted/60 border-muted text-muted-foreground line-through'
-                  : horaSeleccionada === hora
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'hover:border-foreground/30 active:scale-95'
-                }`}
-            >
-              {hora}
-            </button>
-          )
-        })}
-      </div>
-    </section>
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      {HORAS.map((hora) => {
+        const isOccupied = horasOcupadas.includes(hora)
+        return (
+          <button
+            key={hora}
+            onClick={() => !isOccupied && onHoraSelect(hora)}
+            disabled={isOccupied}
+            className={`rounded-lg border py-2 px-1 text-xs font-display font-medium transition-all duration-150
+                            ${isOccupied
+                ? 'opacity-35 cursor-not-allowed bg-muted/40 border-border text-muted-foreground line-through'
+                : horaSeleccionada === hora
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'bg-background border-border text-foreground hover:border-foreground/30'
+              }`}
+          >
+            {hora}
+          </button>
+        )
+      })}
+    </div>
   )
 }
