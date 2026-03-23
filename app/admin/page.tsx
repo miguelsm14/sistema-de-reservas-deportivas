@@ -1,5 +1,7 @@
 import { BotonEliminarPista } from "@/components/admin/boton-eliminar-pista";
 
+export const dynamic = 'force-dynamic';
+
 // ... [existing imports]
 import { createClient } from "@/lib/supabase/server";
 import { CrearPistaForm } from "@/components/admin/crear-pista-form";
