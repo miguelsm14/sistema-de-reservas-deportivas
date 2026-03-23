@@ -2,6 +2,7 @@
 import { Button } from "../ui/button"
 import { ArrowRight } from "lucide-react"
 import { useFadeUp } from "../ui/fadeUp";
+import Link from "next/link";
 
 
 
@@ -16,10 +17,13 @@ export function FinalCTA() {
                 <p className="text-lg text-muted-foreground mt-4 max-w-xl mx-auto">
                     Únete a miles de jugadores que ya reservan pistas sin complicaciones.
                 </p>
-                <Button size="lg" className="mt-8 pulse-glow text-base font-semibold px-10">
-                    Empieza gratis
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <Link href="/reservas">
+                    <Button size="lg" className="mt-8 pulse-glow text-base font-semibold px-10">
+                        Empieza gratis
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                </Link>
+
             </div>
         </section>
     )

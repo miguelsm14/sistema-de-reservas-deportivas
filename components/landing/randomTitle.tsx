@@ -1,5 +1,6 @@
 import { User, Shuffle } from "lucide-react"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 export function RandomTitle() {
     return (
@@ -27,9 +28,12 @@ export function RandomTitle() {
                     ¿No tienes pareja? No hay excusa. Activa el modo aleatorio y te
                     emparejamos con jugadores de tu nivel. Solo tienes que presentarte.
                 </p>
-                <Button size="lg" className="mt-8 text-base font-semibold px-8">
-                    Probar modo 2vs2
-                </Button>
+                <Link href="/">
+                    <Button size="lg" className="mt-8 text-base font-semibold px-8">
+                        Próximamente modo 2vs2
+                    </Button>
+                </Link>
+
             </div>
         </section>
     )

@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { ArrowRight, Zap } from "lucide-react";
 import ScrollVelocity from "../ScrollVelocity";
 import { useFadeUp } from "../ui/fadeUp";
+import Link from "next/link";
 
 // AQUI SOLO VAMOS A DEJAR EL HERO
 // TODO LO DEMÁS FUERA
@@ -28,7 +29,7 @@ export function Hero() {
             <div className="w-full lg:w-1/2 flex flex-col gap-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 text-sm text-primary w-fit mx-auto lg:mx-0">
                 <Zap className="w-4 h-4" />
-                Nuevo: Modo 2vs2 aleatorio
+                Proximamente: Modo 2vs2 aleatorio
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
@@ -43,10 +44,13 @@ export function Hero() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <Button size="lg" className="pulse-glow text-base font-semibold px-8">
-                  Reservar ahora
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <Link href="/reservas">
+                  <Button size="lg" className="pulse-glow text-base font-semibold px-8">
+
+                    Reservar ahora
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
               </div>
 
               {/* PARA UN FUTURO¿? */}
