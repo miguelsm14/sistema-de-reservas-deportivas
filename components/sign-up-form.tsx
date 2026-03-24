@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -80,7 +81,14 @@ export function SignUpForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-4", className)} {...props}>
+      <Link 
+        href="/" 
+        className="self-start flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-muted/50 hover:bg-muted py-2 px-3 rounded-md"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Volver al inicio
+      </Link>
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Regístrate</CardTitle>
