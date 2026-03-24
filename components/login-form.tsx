@@ -49,8 +49,9 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
-      // Update this route to redirect to an authenticated route. The user already has an active session.
-      router.push("/");
+      // Usamos window.location.href en lugar de router.push()
+      // Esto obliga al navegador a recargar la página esquivando la caché de Next.js y Vercel.
+      window.location.href = "/";
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -60,8 +61,8 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-4", className)} {...props}>
-      <Link 
-        href="/" 
+      <Link
+        href="/"
         className="self-start flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-muted/50 hover:bg-muted py-2 px-3 rounded-md"
       >
         <ArrowLeft className="w-4 h-4" />
