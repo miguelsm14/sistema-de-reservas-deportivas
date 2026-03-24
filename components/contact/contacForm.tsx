@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Send, Bug, MessageSquare, MapPin, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { submitContactForm } from "@/app/actions/contact";
 
 const categories = [
   { value: "bug", label: "Reportar un error", icon: Bug },
@@ -27,20 +29,29 @@ export function ContactForm() {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) {
-      //toast({ title: "Rellena todos los campos", variant: "destructive" });
+      toast.error("Rellena todos los campos");
       return;
     }
     setSending(true);
-    setTimeout(() => {
+
+    try {
+      const result = await submitContactForm({ name, email, category, message });
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success("¡Mensaje enviado! Te responderemos lo antes posible.");
+        setName("");
+        setEmail("");
+        setMessage("");
+      }
+    } catch (error) {
+      toast.error("Ocurrió un error inesperado.");
+    } finally {
       setSending(false);
-      //toast({title: "¡Mensaje enviado!",description: "Te responderemos lo antes posible.",});
-      setName("");
-      setEmail("");
-      setMessage("");
-    }, 1200);
+    }
   };
 
   return (

@@ -72,22 +72,6 @@ export default function Home() {
           <ContactForm />
         </div>
 
-        <footer className="w-full flex flex-col sm:flex-row items-center justify-center border-t mx-auto text-center text-xs gap-4 sm:gap-8 py-16">
-          <p>
-            Desarrollado por{" "}
-            <a
-              href="https://github.com/miguelsm14"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Miguel Sánchez
-            </a>
-          </p>
-
-          {/* <ThemeSwitcher /> */}
-        </footer>
-
       </div>
     </main>
   );

@@ -20,16 +20,15 @@ export function CrearPistaForm() {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await addPistaAction(formData);
-      setSuccess("¡Instalación añadida correctamente!");
-      e.currentTarget.reset(); // Limpia el formulario
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
+      const result = await addPistaAction(formData);
+      if (result?.error) {
+        setError(result.error);
       } else {
-        setError("Ocurrió un error inesperado.");
+        setSuccess("¡Instalación añadida correctamente!");
+        e.currentTarget.reset(); // Limpia el formulario
       }
+    } catch (err: unknown) {
+      setError("Ocurrió un error inesperado.");
     } finally {
       setIsPending(false);
     }

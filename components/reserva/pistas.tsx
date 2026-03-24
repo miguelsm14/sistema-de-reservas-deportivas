@@ -87,10 +87,10 @@ export function PistasClient({ pistas }: PistasClientProps) {
                                 setFecha(undefined)
                                 setHoraSeleccionada(null)
                             }}
-                            className={`relative text-left rounded-xl border p-4 transition-all duration-200
+                            className={`relative text-left rounded-2xl border p-5 transition-all duration-300 overflow-hidden group
                                 ${pistaSeleccionada?.id === c.id
-                                    ? 'border-primary bg-primary/5'
-                                    : 'bg-card border-border hover:border-border/80'
+                                    ? 'border-primary ring-1 ring-primary shadow-md bg-primary/5 scale-[1.02]'
+                                    : 'bg-card border-border hover:border-primary/50 hover:shadow-lg hover:-translate-y-1'
                                 }`}
                         >
                             {/* Check badge */}
@@ -121,24 +121,26 @@ export function PistasClient({ pistas }: PistasClientProps) {
             {pistaSeleccionada && (
                 <>
                     <hr className="border-border" />
-                    <section className="space-y-6">
-                        <h2 className="font-display font-medium text-foreground text-base">
-                            Reservando: <span className="text-primary">{pistaSeleccionada.nombre}</span>
+                    <section className="space-y-6 pt-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <h2 className="font-display font-medium text-foreground text-xl flex items-center gap-2">
+                            Pista seleccionada: <span className="text-primary font-bold">{pistaSeleccionada.nombre}</span>
                         </h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                             {/* Calendario */}
-                            <div className="bg-card border border-border rounded-xl p-4">
-                                <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-4">
-                                    Elige una fecha
+                            <div className="bg-card shadow-sm border border-border/70 rounded-2xl p-6 relative overflow-hidden transition-all hover:shadow-md">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-4">
+                                    1. Elige una fecha
                                 </p>
                                 <Calendario fecha={fecha} onFechaSelect={setFecha} />
                             </div>
 
                             {/* Horas */}
-                            <div className="bg-card border border-border rounded-xl p-4">
-                                <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-4">
-                                    Elige una hora
+                            <div className="bg-card shadow-sm border border-border/70 rounded-2xl p-6 relative overflow-hidden transition-all hover:shadow-md">
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none"></div>
+                                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-4">
+                                    2. Elige una hora
                                 </p>
                                 <HorasDisponibles
                                     horaSeleccionada={horaSeleccionada}
@@ -153,32 +155,7 @@ export function PistasClient({ pistas }: PistasClientProps) {
 
             {/* Confirmar */}
             {pistaSeleccionada && fecha && horaSeleccionada && (
-                <div className="bg-card border border-primary/30 rounded-xl p-4 space-y-4">
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
-                        Resumen
-                    </p>
-                    <div className="space-y-2 text-sm">
-                        <div className="flex items-center gap-3">
-                            <span className="text-muted-foreground w-14">Pista</span>
-                            <span className="font-medium text-foreground">{pistaSeleccionada.nombre}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="text-muted-foreground w-14">Fecha</span>
-                            <span className="font-medium text-foreground">
-                                {fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="text-muted-foreground w-14">Hora</span>
-                            <span className="font-medium text-foreground">
-                                {horaSeleccionada} — {`${parseInt(horaSeleccionada) + 1}:00`}
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="text-muted-foreground w-14">Precio</span>
-                            <span className="font-medium text-foreground">{pistaSeleccionada.precio}€</span>
-                        </div>
-                    </div>
+                <div className="max-w-3xl mx-auto w-full mt-12 animate-in fade-in slide-in-from-bottom-8 duration-500">
                     <ConfirmarReserva
                         pista={pistaSeleccionada}
                         fecha={fecha}

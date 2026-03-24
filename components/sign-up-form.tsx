@@ -62,11 +62,12 @@ export function SignUpForm({
         },
       });
       if (data?.user) {
-        await supabase.from("Usuarios").insert({
+        const { error: insertError } = await supabase.from("Usuarios").insert({
           uid: data.user.id,
           email: data.user.email,
           codRol: 1 // 1 para usuarios normales por defecto
         });
+        if (insertError) throw insertError;
       }
 
       if (error) throw error;

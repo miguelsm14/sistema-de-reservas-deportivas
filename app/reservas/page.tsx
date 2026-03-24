@@ -56,9 +56,26 @@ export default function Reservas() {
           </div>
         </nav>
 
-        {/* LANDING COMPLETA */}
-        <div className="w-full">
-          <Suspense fallback={<p>Cargando...</p>}>
+        {/* HERO SECTION */}
+        <div className="w-full relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 pt-16 pb-12 mb-8 border-b border-border/40">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+            <div className="max-w-5xl mx-auto px-5 text-center relative z-10 space-y-4">
+                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+                    Encuentra tu pista perfecta
+                </h1>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Selecciona tu deporte favorito, elige fecha y hora, y prepárate para jugar. ¡Todo en menos de un minuto!
+                </p>
+            </div>
+        </div>
+
+        {/* CONTENIDO PISTAS */}
+        <div className="w-full pb-20">
+          <Suspense fallback={
+            <div className="flex justify-center p-20 w-full">
+              <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
+            </div>
+          }>
             <PistasExistentes/>
           </Suspense>
         </div>

@@ -58,8 +58,6 @@ export default function Contact() {
                     <ContactForm/>
                 </div>
 
-
-                {/* FALTA EL FOOTER */}
             </div>
         </main>
     )

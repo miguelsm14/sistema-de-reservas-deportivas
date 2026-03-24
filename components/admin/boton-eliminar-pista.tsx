@@ -17,9 +17,12 @@ export function BotonEliminarPista({ id, nombre }: { id: string; nombre: string 
 
     startTransition(async () => {
       try {
-        await deletePistaAction(id);
-        toast.success(`La instalación "${nombre}" ha sido eliminada.`);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const result = await deletePistaAction(id);
+        if (result?.error) {
+          toast.error(result.error);
+        } else {
+          toast.success(`La instalación "${nombre}" ha sido eliminada.`);
+        }
       } catch (err) {
         toast.error("Hubo un problema al intentar eliminar la instalación.");
       }

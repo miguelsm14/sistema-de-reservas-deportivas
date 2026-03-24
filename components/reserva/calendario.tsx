@@ -10,8 +10,8 @@ interface CalendarioProps {
 
 export function Calendario({ fecha, onFechaSelect }: CalendarioProps) {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="border-0 shadow-none bg-transparent">
+      <CardHeader className="px-0 pt-0 pb-4">
         <CardTitle>Elige una fecha</CardTitle>
       </CardHeader>
       <CardContent className="flex justify-center">

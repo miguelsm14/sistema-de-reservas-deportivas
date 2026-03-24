@@ -77,18 +77,49 @@ export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) 
     }
 
     return (
-        <Card>
-            <CardContent className="pt-6 space-y-4">
-                <div className="space-y-1 text-sm text-muted-foreground">
-                    <p>🎾 <span className="text-foreground font-medium">{pista.nombre}</span></p>
-                    <p>📅 <span className="text-foreground font-medium">{fecha.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span></p>
-                    <p>🕐 <span className="text-foreground font-medium">{hora} — {`${parseInt(hora) + 1}:00`}</span></p>
-                    <p>💶 <span className="text-foreground font-medium">{pista.precio}€</span></p>
+        <Card className="overflow-hidden border-0 ring-1 ring-border shadow-2xl bg-gradient-to-br from-card to-card/50">
+            <div className="bg-primary/10 p-5 border-b border-primary/10 flex items-center gap-3">
+                <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold">✓</div>
+                <h3 className="font-semibold text-xl text-primary">Resumen de tu reserva</h3>
+            </div>
+            <CardContent className="p-6 md:p-8 space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
+                    <div className="space-y-1">
+                        <p className="text-muted-foreground uppercase text-xs font-semibold tracking-wider">Instalación</p>
+                        <p className="text-foreground font-medium text-lg flex items-center gap-2">
+                           🎾 {pista.nombre}
+                        </p>
+                    </div>
+                    <div className="space-y-1">
+                        <p className="text-muted-foreground uppercase text-xs font-semibold tracking-wider">Fecha</p>
+                        <p className="text-foreground font-medium text-lg flex items-center gap-2">
+                           📅 {fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                        </p>
+                    </div>
+                    <div className="space-y-1">
+                        <p className="text-muted-foreground uppercase text-xs font-semibold tracking-wider">Horario</p>
+                        <p className="text-foreground font-medium text-lg flex items-center gap-2">
+                           🕐 {hora} — {`${parseInt(hora) + 1}:00`}
+                        </p>
+                    </div>
+                    <div className="space-y-1">
+                        <p className="text-muted-foreground uppercase text-xs font-semibold tracking-wider">Precio por hora</p>
+                        <p className="text-foreground font-medium text-lg flex items-center gap-2">
+                           💶 {pista.precio}€
+                        </p>
+                    </div>
                 </div>
 
-                <Button onClick={handleReservar} disabled={loading} className="w-full">
-                    {loading ? 'Reservando...' : 'Confirmar reserva'}
-                </Button>
+                <div className="pt-8 border-t border-border flex flex-col md:flex-row gap-6 items-center justify-between">
+                    <div className="space-y-1 text-center md:text-left">
+                       <p className="text-muted-foreground uppercase text-xs font-semibold tracking-wider">Total a pagar en el club</p>
+                       <p className="font-black text-4xl text-foreground">{pista.precio} <span className="text-xl text-muted-foreground">€</span></p>
+                    </div>
+                
+                    <Button onClick={handleReservar} disabled={loading} size="lg" className="w-full md:w-auto px-10 py-7 text-lg font-bold shadow-lg shadow-primary/25 hover:scale-105 transition-all">
+                        {loading ? 'Procesando...' : 'Confirmar y Reservar'}
+                    </Button>
+                </div>
             </CardContent>
         </Card>
     )

@@ -22,12 +22,12 @@ export function HorasDisponibles({ horaSeleccionada, onHoraSelect, horasOcupadas
             key={hora}
             onClick={() => !isOccupied && onHoraSelect(hora)}
             disabled={isOccupied}
-            className={`rounded-lg border py-2 px-1 text-xs font-display font-medium transition-all duration-150
+            className={`rounded-xl border py-3 px-2 text-sm font-semibold transition-all duration-300
                             ${isOccupied
-                ? 'opacity-35 cursor-not-allowed bg-muted/40 border-border text-muted-foreground line-through'
+                ? 'opacity-30 cursor-not-allowed bg-muted/20 border-border text-muted-foreground line-through'
                 : horaSeleccionada === hora
-                  ? 'border-primary bg-primary/10 text-primary'
-                  : 'bg-background border-border text-foreground hover:border-foreground/30'
+                  ? 'border-primary bg-primary text-primary-foreground shadow-md ring-offset-2 ring-2 ring-primary/30 scale-105'
+                  : 'bg-background border-border text-foreground hover:border-primary/50 hover:bg-primary/5 hover:scale-105'
               }`}
           >
             {hora}
