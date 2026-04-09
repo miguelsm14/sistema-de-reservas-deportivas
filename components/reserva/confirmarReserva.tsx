@@ -66,11 +66,7 @@ export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) 
         if (error) {
             toast.error('Error al realizar la reserva.')
         } else {
-            toast.success('¡Reserva realizada correctamente!')
-            //Esto realiza la recarga despues de reservar
-            setTimeout(() => {
-                window.location.reload()
-            }, 1500)
+            router.push(`/reserva/exito?pista=${encodeURIComponent(pista.nombre)}&fecha=${exactDate}&hora=${hora}&precio=${pista.precio}`)
         }
 
         setLoading(false)
