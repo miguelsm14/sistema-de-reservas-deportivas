@@ -9,10 +9,10 @@ import { CheckCircle2, ArrowLeft, CalendarDays, Clock, CreditCard, ChevronRight,
 function ReservaExitoContent() {
     const searchParams = useSearchParams()
     const router = useRouter()
-    
+
     // Forzar renderizado solo en cliente para evitar hydration mismatch con searchParams
     const [mounted, setMounted] = useState(false)
-    
+
     useEffect(() => {
         setMounted(true)
     }, [])
@@ -26,11 +26,12 @@ function ReservaExitoContent() {
     }
 
     const pista = searchParams.get("pista")
+    const pistaId = searchParams.get("pistaId")
     const fecha = searchParams.get("fecha")
     const hora = searchParams.get("hora")
     const precio = searchParams.get("precio")
-    
-    const fechaFormateada = fecha 
+
+    const fechaFormateada = fecha
         ? new Date(fecha).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
         : 'Fecha no disponible'
 
@@ -41,7 +42,7 @@ function ReservaExitoContent() {
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="max-w-3xl mx-auto relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                
+
                 {/* Header de Éxito */}
                 <div className="text-center mb-10 space-y-4">
                     <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-4 animate-bounce shrink-0">
@@ -51,8 +52,8 @@ function ReservaExitoContent() {
                         ¡Reserva Confirmada!
                     </h1>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Estás reservando la {pista ? <span className="font-bold text-foreground">{pista}</span> : 'pista seleccionada'}. 
-                        A continuación te mostramos los detalles de tu reserva y normativas importantes de las instalaciones. 
+                        Estás reservando la {pista ? <span className="font-bold text-foreground">{pista}</span> : 'pista seleccionada'}.
+                        A continuación te mostramos los detalles de tu reserva y normativas importantes de las instalaciones.
                     </p>
                 </div>
 
@@ -128,20 +129,20 @@ function ReservaExitoContent() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
-                    
-                    <Button 
-                        size="lg" 
+
+                    <Button
+                        size="lg"
                         onClick={async (e) => {
                             const btn = e.currentTarget;
                             const originalText = btn.innerHTML;
                             btn.innerHTML = "Generando pago seguro...";
                             btn.disabled = true;
-                            
+
                             try {
                                 const response = await fetch('/api/checkout', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ pista, fecha, hora, precio })
+                                    body: JSON.stringify({ pista, pistaId, fecha, hora, precio })
                                 })
                                 const data = await response.json()
                                 if (data.url) {
@@ -159,16 +160,16 @@ function ReservaExitoContent() {
                         }}
                         className="w-full sm:w-auto h-14 px-8 text-base shadow-lg shadow-primary/25 hover:scale-105 transition-transform"
                     >
-                        Pagar con Tarjeta (Stripe) 
+                        Realizar el pago
                     </Button>
-                    <Button 
+                    <Button
                         variant="outline"
-                        size="lg" 
+                        size="lg"
                         onClick={() => router.push('/')}
                         className="w-full sm:w-auto h-14 px-8 text-base shadow-sm hover:bg-primary/5 transition-colors"
                     >
                         Volver al inicio
-                        
+
                     </Button>
                 </div>
             </div>

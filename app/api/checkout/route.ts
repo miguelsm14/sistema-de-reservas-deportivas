@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { createClient } from "@/lib/supabase/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2025-02-24.acacia' as any, // Usamos la última versión tipada o compatible
@@ -7,7 +8,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 export async function POST(req: Request) {
   try {
-    const { pista, precio, fecha, hora } = await req.json();
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        return NextResponse.json({ error: "Usuario no autenticado" }, { status: 401 });
+    }
+
+    const { pista, pistaId, precio, fecha, hora } = await req.json();
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -25,6 +33,15 @@ export async function POST(req: Request) {
         },
       ],
       mode: 'payment',
+      metadata: {
+        userId: user.id,
+        userEmail: user.email || '',
+        pistaId: pistaId,
+        pistaNombre: pista,
+        fecha: fecha,
+        hora: hora,
+        precio: String(precio) // Stripe requires strings for metadata
+      },
       // Redirige usando el domino base
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/reserva/pago-completado?session_id={CHECKOUT_SESSION_ID}&pista=${encodeURIComponent(pista)}&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}&precio=${precio}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/reserva/exito?pista=${encodeURIComponent(pista)}&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}&precio=${precio}`,

@@ -53,21 +53,9 @@ export function ConfirmarReserva({ pista, fecha, hora }: ConfirmarReservaProps) 
             return
         }
 
-        // 2. Inserción de la nueva reserva
-        const { error } = await supabase
-            .from("Reservas")
-            .insert({
-                id_usuario: user.id,
-                id_pista: pista.id,
-                fecha: exactDate,
-                hora: exactTime,
-            })
+        // 2. Solo redirigimos a la página de éxito (pasamos el id de la pista para el pago)
+        router.push(`/reserva/exito?pista=${encodeURIComponent(pista.nombre)}&pistaId=${pista.id}&fecha=${exactDate}&hora=${hora}&precio=${pista.precio}`)
 
-        if (error) {
-            toast.error('Error al realizar la reserva.')
-        } else {
-            router.push(`/reserva/exito?pista=${encodeURIComponent(pista.nombre)}&fecha=${exactDate}&hora=${hora}&precio=${pista.precio}`)
-        }
 
         setLoading(false)
     }

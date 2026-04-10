@@ -1,19 +1,15 @@
 'use client'
 
 import { useSearchParams, useRouter } from "next/navigation"
-import { useEffect, useState, Suspense, useRef } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2, ArrowRight, Receipt, MailCheck } from "lucide-react"
-import { sendReceipt } from "@/app/actions/sendReceipt"
 
 function PagoCompletadoContent() {
     const searchParams = useSearchParams()
     const router = useRouter()
     
     const [mounted, setMounted] = useState(false)
-    const [emailStatus, setEmailStatus] = useState<'sending' | 'sent' | 'error'>('sending')
-    const emailRef = useRef(false)
-    
     useEffect(() => {
         setMounted(true)
     }, [])
@@ -22,19 +18,6 @@ function PagoCompletadoContent() {
     const fecha = searchParams.get("fecha")
     const hora = searchParams.get("hora")
     const precio = searchParams.get("precio")
-
-    useEffect(() => {
-        // Evitamos enviar doble email si ya se mandó en esta sesión (React Strict Mode prevention)
-        if (mounted && !emailRef.current && pista && fecha && hora && precio) {
-            emailRef.current = true;
-            sendReceipt(pista, precio, fecha, hora)
-                .then((res) => {
-                    if(res.success) setEmailStatus('sent')
-                    else setEmailStatus('error')
-                })
-                .catch(() => setEmailStatus('error'))
-        }
-    }, [mounted, pista, fecha, hora, precio])
 
     if (!mounted) return null;
 
@@ -60,15 +43,13 @@ function PagoCompletadoContent() {
                     </div>
                     <div className="space-y-4 relative z-10">
                         <div className="flex items-center gap-3">
-                            <div className={`p-2 rounded-full ${emailStatus === 'sending' ? 'bg-blue-500/10 text-blue-500 animate-pulse' : emailStatus === 'sent' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-orange-500/10 text-orange-500'}`}>
+                            <div className="p-2 rounded-full bg-emerald-500/10 text-emerald-500">
                                 <MailCheck className="w-5 h-5" />
                             </div>
                             <div className="text-sm">
                                 <p className="font-medium text-foreground">Recibo por correo</p>
                                 <p className="text-muted-foreground">
-                                    {emailStatus === 'sending' && 'Enviando comprobante automáticamente...'}
-                                    {emailStatus === 'sent' && 'Enviado con éxito a tu cuenta de email.'}
-                                    {emailStatus === 'error' && 'Hubo un error enviando el comprobante de pago.'}
+                                    Enviado con éxito a tu cuenta de email.
                                 </p>
                             </div>
                         </div>
