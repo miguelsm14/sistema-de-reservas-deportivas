@@ -14,7 +14,7 @@ export function Historia() {
                         pádel. Llamaron a las instalaciones de su pueblo. Nadie respondió, hasta la tercera llamada.
                         Despues de un rato, puedieron "reservar" una pista de padel.
                         Cuando llegaron, las dos pistas estaban ocupadas.
-                        No había confirmación, no había registro, no habíaforma de demostrar esa reserva.
+                        No había confirmación, no había registro, no había forma de demostrar esa reserva.
                         Ese día no jugaron.
                     </p>
                     <p>

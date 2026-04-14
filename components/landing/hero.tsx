@@ -92,7 +92,7 @@ export function Hero() {
       {/* ================= CARRUSEL LOP ================= */}
       <div className="mt-20 overflow-hidden border-y border-border py-4 bg-secondary/50">
         <ScrollVelocity
-          texts={['Sin llamadas - Disponible 24/7 - Confirmación instantánea - ']}
+          texts={['Sin llamadas - Disponible 24/7 - Reserva en segundos - Confirmación instantánea - Sin esperas - ']}
           velocity={50}
           className="custom-scroll-text"
         />

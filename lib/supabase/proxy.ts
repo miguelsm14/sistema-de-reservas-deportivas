@@ -55,9 +55,10 @@ export async function updateSession(request: NextRequest) {
   );
 
   if (!user && isProtectedRoute) {
-    // Si no hay usuario y es una ruta protegida, redirigir a inicio (o a login si existe /auth/login)
+    // Si no hay usuario y es una ruta protegida, redirigir a inicio de sesión guardando la ruta original
     const url = request.nextUrl.clone();
-    url.pathname = "/auth/login"; // Redirigir al inicio de sesión
+    url.pathname = "/auth/login"; 
+    url.searchParams.set("next", request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 

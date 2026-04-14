@@ -26,8 +26,8 @@ export function HorasDisponibles({ horaSeleccionada, onHoraSelect, horasOcupadas
                             ${isOccupied
                 ? 'opacity-30 cursor-not-allowed bg-muted/20 border-border text-muted-foreground line-through'
                 : horaSeleccionada === hora
-                  ? 'border-primary bg-primary text-primary-foreground shadow-md ring-offset-2 ring-2 ring-primary/30 scale-105'
-                  : 'bg-background border-border text-foreground hover:border-primary/50 hover:bg-primary/5 hover:scale-105'
+                  ? 'border-primary bg-primary text-primary-foreground shadow-md ring-offset-2 ring-2 ring-primary/30 scale-105 active:scale-95'
+                  : 'bg-background border-border text-foreground hover:border-primary/50 hover:bg-primary/5 hover:scale-105 active:scale-95'
               }`}
           >
             {hora}

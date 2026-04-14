@@ -25,7 +25,7 @@ export function PistasClient({ pistas }: PistasClientProps) {
     //Guarda la pista que el usuario ha clickeado, al principio es 0
     const [pistaSeleccionada, setPistaSeleccionada] = useState<Pistas | null>(null)
     const [horaSeleccionada, setHoraSeleccionada] = useState<string | null>(null)
-    const [fecha, setFecha] = useState<Date | undefined>(undefined)
+    const [fecha, setFecha] = useState<Date | undefined>(new Date())
     const [horasOcupadas, setHorasOcupadas] = useState<string[]>([])
 
     // Efecto para obtener las horas ya reservadas al cambiar de pista o fecha
@@ -84,13 +84,13 @@ export function PistasClient({ pistas }: PistasClientProps) {
                             key={c.id}
                             onClick={() => {
                                 setPistaSeleccionada(c)
-                                setFecha(undefined)
+                                setFecha(new Date())
                                 setHoraSeleccionada(null)
                             }}
                             className={`relative text-left rounded-2xl border p-5 transition-all duration-300 overflow-hidden group
                                 ${pistaSeleccionada?.id === c.id
-                                    ? 'border-primary ring-1 ring-primary shadow-md bg-primary/5 scale-[1.02]'
-                                    : 'bg-card border-border hover:border-primary/50 hover:shadow-lg hover:-translate-y-1'
+                                    ? 'border-primary ring-1 ring-primary shadow-md bg-primary/5 scale-[1.02] active:scale-95'
+                                    : 'bg-card border-border hover:border-primary/50 hover:shadow-lg hover:-translate-y-1 active:scale-95'
                                 }`}
                         >
                             {/* Check badge */}

@@ -6,7 +6,7 @@ export function Valores() {
         {
             icon: Target,
             title: "Nuestra mision",
-            description: "Democratizar el acceso al deporte eliminando las barreras de reserva.Queremos que jugar sea tan fácil como abrir una app."
+            description: "Democratizar el acceso al deporte eliminando las barreras de reserva. Queremos que jugar sea tan fácil como abrir una app."
         },
         {
             icon: Users,

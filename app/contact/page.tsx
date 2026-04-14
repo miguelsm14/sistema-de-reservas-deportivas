@@ -13,8 +13,8 @@ import { ContactForm } from "@/components/contact/contacForm";
 export default function Contact() {
     return (
         <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 flex flex-col gap-10 items-center w-full">
-                <nav className="w-full flex justify-center border-b border-b-foreground/10">
+            <div className="flex-1 flex flex-col items-center w-full">
+                <nav className="sticky top-0 z-50 w-full flex justify-center border-b border-b-foreground/10 bg-background/60 backdrop-blur-md">
                     <div className="w-full max-w-5xl flex flex-row h-14 items-center justify-between px-5 text-sm gap-4">
 
                         {/* Logo - solo visible en desktop */}

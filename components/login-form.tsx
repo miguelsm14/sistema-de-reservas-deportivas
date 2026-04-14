@@ -49,9 +49,14 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
+      
+      // Leemos el parámetro "next" de la URL si existe, si no, vamos a "/"
+      const urlParams = new URLSearchParams(window.location.search);
+      const nextUrl = urlParams.get("next") || "/";
+
       // Usamos window.location.href en lugar de router.push()
       // Esto obliga al navegador a recargar la página esquivando la caché de Next.js y Vercel.
-      window.location.href = "/";
+      window.location.href = nextUrl;
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

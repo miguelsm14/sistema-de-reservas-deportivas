@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ProfileForm } from "./profileForm"
 import { PasswdRecover } from "./passwdRecover"
+import { User, ShieldCheck } from "lucide-react"
 
 interface AccountTabsProps {
   uid: string
@@ -19,37 +20,29 @@ export function AccountTabs({ uid, usuario }: AccountTabsProps) {
   const [activeTab, setActiveTab] = useState<'perfil' | 'seguridad'>('perfil')
 
   return (
-    <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="w-full flex flex-col md:flex-row min-h-[400px]">
 
-      {/* SIDEBAR */}
-      <Card className="lg:col-span-1">
-        <CardHeader>
-          <CardTitle>Cuenta</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm">
-          <div
-            onClick={() => setActiveTab('perfil')}
-            className={`p-2 rounded-md cursor-pointer transition-colors
-              ${activeTab === 'perfil' ? 'bg-muted' : 'hover:bg-muted/50'}`}
-          >
-            Perfil
-          </div>
-          <div
-            onClick={() => setActiveTab('seguridad')}
-            className={`p-2 rounded-md cursor-pointer transition-colors
-              ${activeTab === 'seguridad' ? 'bg-muted' : 'hover:bg-muted/50'}`}
-          >
-            Seguridad
-          </div>
-        </CardContent>
-      </Card>
+      {/* SIDEBAR TABS */}
+      <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-border/40 p-6 space-y-2 bg-muted/10">
+        <h3 className="text-sm font-bold text-muted-foreground tracking-wider uppercase mb-4 ml-2">Ajustes</h3>
+        <div
+          onClick={() => setActiveTab('perfil')}
+          className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 font-medium
+            ${activeTab === 'perfil' ? 'bg-primary/10 text-primary shadow-sm' : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'}`}
+        >
+          <User className="w-4 h-4" /> Perfil y Datos
+        </div>
+        <div
+          onClick={() => setActiveTab('seguridad')}
+          className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 font-medium
+            ${activeTab === 'seguridad' ? 'bg-primary/10 text-primary shadow-sm' : 'text-muted-foreground hover:bg-muted/80 hover:text-foreground'}`}
+        >
+          <ShieldCheck className="w-4 h-4" /> Seguridad
+        </div>
+      </div>
 
       {/* MAIN CONTENT */}
-      <Card className="lg:col-span-2">
-        <CardHeader>
-          <CardTitle>{activeTab === 'perfil' ? 'Perfil' : 'Seguridad'}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-8">
+      <div className="flex-1 p-6 md:p-10 bg-card">
 
           {activeTab === 'perfil' && (
             <>
@@ -74,10 +67,13 @@ export function AccountTabs({ uid, usuario }: AccountTabsProps) {
             </>
           )}
 
-          {activeTab === 'seguridad' && <PasswdRecover />}
+            {activeTab === 'seguridad' && (
+              <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <PasswdRecover />
+              </div>
+            )}
 
-        </CardContent>
-      </Card>
+      </div>
 
     </div>
   )

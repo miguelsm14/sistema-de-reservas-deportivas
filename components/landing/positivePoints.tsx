@@ -19,21 +19,21 @@ const positive = [
   },
 ]
 
-export function PosPoints(){
-    return(
+export function PosPoints() {
+  return (
     <section className="py-20 lg:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <p className="text-primary text-sm font-semibold uppercase tracking-wider">
-              Modo automático
-            </p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-3">
-              Reservar una pista sigue siendo un lío
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {positive.map((item) =>(
-              <SpotlightCard
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12">
+          <p className="text-primary text-sm font-semibold uppercase tracking-wider">
+            Modo automático
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-3">
+            Menos llamadas, menos errores
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {positive.map((item) => (
+            <SpotlightCard
               key={item.title}
               className="rounded-xl"
               spotlightColor="rgba(34, 197, 94, 0.25)"
@@ -48,9 +48,9 @@ export function PosPoints(){
                 </p>
               </div>
             </SpotlightCard>
-            ))}
-          </div>
+          ))}
         </div>
-      </section>
-); 
+      </div>
+    </section>
+  );
 }
