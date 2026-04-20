@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { StaggeredMenu } from './StaggeredMenu'
 
 const navLinks = [
   { label: 'Inicio', href: '/' },
@@ -28,7 +29,7 @@ export function MenuHeader({ logo, auth, isAdmin }: MenuHeaderProps) {
 
   return (
     <main>
-      {/* Desktop */}
+      {/* Desktop Navigation */}
       <ul className="hidden sm:flex items-center gap-1 flex-nowrap whitespace-nowrap">
         {visibleLinks.map(({ label, href }) => {
           const isActive = pathname === href
@@ -49,70 +50,19 @@ export function MenuHeader({ logo, auth, isAdmin }: MenuHeaderProps) {
         })}
       </ul>
 
-      {/* Botón hamburguesa */}
-      <button
-        onClick={() => setOpen(true)}
-        className="sm:hidden flex flex-col justify-center items-center gap-1.5 w-8 h-8 ml-auto"
-        aria-label="Abrir menú"
-      >
-        <span className="w-5 h-px bg-foreground block" />
-        <span className="w-5 h-px bg-foreground block" />
-        <span className="w-5 h-px bg-foreground block" />
-      </button>
-
-      {/* Overlay */}
-      <div
-        onClick={() => setOpen(false)}
-        className={`sm:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity duration-300
-          ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-      />
-
-      {/* Drawer */}
-      <div
-        className={`sm:hidden fixed top-0 right-0 h-full w-64 z-50
-          bg-background border-l border-foreground/10
-          flex flex-col
-          transition-transform duration-300 ease-in-out
-          ${open ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        {/* Cabecera con logo y cierre */}
-        <div className="flex items-center justify-between px-5 h-14 border-b border-foreground/10">
-          {logo && <div className="font-semibold text-sm">{logo}</div>}
-          <button
-            onClick={() => setOpen(false)}
-            className="ml-auto w-8 h-8 flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors"
-            aria-label="Cerrar menú"
-          >
-            ✕
-          </button>
-        </div>
-
-        {/* Links */}
-        <nav className="flex flex-col px-3 py-4 gap-1 flex-1">
-          {visibleLinks.map(({ label, href }) => {
-            const isActive = pathname === href
-            return (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setOpen(false)}
-                className={`px-3 py-2.5 text-sm rounded-md transition-colors duration-150
-                  ${isActive
-                    ? 'text-foreground font-medium bg-foreground/5'
-                    : 'text-foreground/60 hover:text-foreground/90 hover:bg-foreground/5'}`}
-              >
-                {label}
-              </Link>
-            )
-          })}
-        </nav>
-
-        {/* Auth al fondo */}
-        {auth && (
-          <div className="px-5 py-4 border-t border-foreground/10">
-            {auth}
-          </div>
-        )}
+      {/* Mobile Navigation - Staggered Menu */}
+      <div className="sm:hidden absolute top-0 left-0 w-full h-full overflow-visible z-50 pointer-events-none">
+        <StaggeredMenu
+          isFixed={false}
+          items={visibleLinks.map(link => ({
+            label: link.label,
+            ariaLabel: `Ir a ${link.label}`,
+            link: link.href
+          }))}
+          logoUrl="" // El logo se puede pasar vacío si hay otro principal
+          menuButtonColor="#000" // Aseguramos que sea visible en modo claro
+          openMenuButtonColor="#000"
+        />
       </div>
     </main>
   )
