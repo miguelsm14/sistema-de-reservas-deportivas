@@ -14,6 +14,7 @@ const navLinks = [
 interface MenuHeaderProps {
   logo?: React.ReactNode
   auth?: React.ReactNode
+  isAdmin?: boolean
 }
 
 export function MenuHeader({ logo, auth }: MenuHeaderProps) {
