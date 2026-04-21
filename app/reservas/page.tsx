@@ -18,7 +18,7 @@ export default function Reservas() {
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 flex flex-col items-center w-full">
 
-        <nav className="sticky top-0 z-50 w-full flex justify-center border-b border-b-foreground/10 bg-background/60 backdrop-blur-md">
+        <nav className="w-full flex justify-center border-b border-b-foreground/10">
           <div className="w-full max-w-5xl flex flex-row h-14 items-center justify-between px-5 text-sm gap-4">
 
             {/* Logo - solo visible en desktop */}
@@ -58,15 +58,15 @@ export default function Reservas() {
 
         {/* HERO SECTION */}
         <div className="w-full relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 pt-16 pb-12 mb-8 border-b border-border/40">
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent opacity-60 pointer-events-none"></div>
-            <div className="max-w-5xl mx-auto px-5 text-center relative z-10 space-y-4">
-                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-                    Encuentra tu pista perfecta
-                </h1>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Selecciona tu deporte favorito, elige fecha y hora, y prepárate para jugar. ¡Todo en menos de un minuto!
-                </p>
-            </div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10 space-y-4">
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+              Encuentra tu pista perfecta
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Selecciona tu deporte favorito, elige fecha y hora, y prepárate para jugar. ¡Todo en menos de un minuto!
+            </p>
+          </div>
         </div>
 
         {/* CONTENIDO PISTAS */}
@@ -90,10 +90,10 @@ export default function Reservas() {
               </section>
             </div>
           }>
-            <PistasExistentes/>
+            <PistasExistentes />
           </Suspense>
         </div>
-          
+
       </div>
     </main>
   );
